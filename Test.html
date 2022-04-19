@@ -1,0 +1,103 @@
+<html>
+<head>
+<meta http-equiv="Pragma" content="no-cache">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html;"  charset="UTF-8">
+<script language="javascript" src="/EngDev/GenScripts94/GenFunctions.js"></script>
+<script language="javascript">
+var globalXML2 = getXMLParser();
+function Proceed_BTonclick()
+{
+	with(document.forms[0])
+	{
+		UpdateXml();
+		alert(DetailLinesBlob.value);
+	}
+}
+function UpdateXml_CB()
+{
+	   with(document.forms[0])
+        {
+      		
+					
+				var xmlObj=getXMLFirstElement(globalXML2,"Root");
+				alert(globalXML2.xml);
+                var Record=createElementCommon(xmlObj,globalXML2,'Records');
+				var	newatt=createAttributeCommon(xmlObj,globalXML2,"First_Name");
+				newatt.value=document.getElementById("First_Name").value;
+				Record.setAttributeNode(newatt);
+				
+				var	newatt1=createAttributeCommon(xmlObj,globalXML2,"Last_Name");
+				newatt1.value=document.getElementById("Last_Name").value;
+				Record.setAttributeNode(newatt1);
+				
+				var	newatt2=createAttributeCommon(xmlObj,globalXML2,"Email_Address");
+				newatt2.value=document.getElementById("Email_Address").value;
+				Record.setAttributeNode(newatt2);
+				appendNodeToParent(xmlObj,Record);
+              
+				DetailLinesBlob.value=globalXML2.xml;
+			
+			
+			}		
+}
+
+function UpdateXml()
+{
+	   with(document.forms[0])
+        {	
+           globalXML2 = new ActiveXObject("Microsoft.XMLDOM");
+		   globalXML2.loadXML("<Root></Root>");
+			var root=globalXML2.getElementsByTagName("Root").item(0);
+			 
+			var Record=globalXML2.createElement('Records');
+				Record.setAttribute("F_Name",document.getElementById("First_Name").value);
+				root.appendChild(Record);
+              
+			var Record=globalXML2.createElement('Records');
+				Record.setAttribute("L_Name",document.getElementById("Last_Name").value);
+				root.appendChild(Record);
+			  
+			DetailLinesBlob.value=globalXML2.xml;
+		}		
+}
+</script>
+</head>
+<body>
+<form action="/Magic94Scripts/mgrqispi94.dll" method="post">
+<INPUT type="hidden" name="APPNAME" value="Training" >
+<INPUT type="hidden" name="PRGNAME" value="SaveEmployee">
+<INPUT type="hidden" name="ARGUMENTS" value="-AS,DetailLinesBlob">
+<INPUT type="hidden" name="DetailLinesBlob" value="">
+	<table border="0" cellpadding="5" cellspacing="0">
+	<tr> 
+	<td style="width: 50%" colspan="2"><b>Employee ID *</b><br />
+	<input id="EmpID" name="EmpID" type="text" maxlength="50" style="width: 260px" />
+	</td> 
+	</tr> 
+	<tr> 
+	<td style="width: 50%"><b>First name *</b><br />
+	<input id="First_Name" name="First_Name" type="text" maxlength="50" style="width: 260px" />
+	</td> 
+	<td style="width: 50%"><b>Last name *</b><br />
+	<input id="Last_Name" name="Last_Name" type="text" maxlength="50" style="width: 260px" />
+	</td> 
+	</tr> 
+	<tr> 
+	<td colspan="2"><b>Email *</b><br/>
+	<input id="Email_Address" name="Email_Address" type="text" maxlength="100" style="width: 535px" />
+	</td> 
+	</tr>  
+	<tr> 
+	<td colspan="2"><b>Phone *</b><br />
+	<input id="Phone" name="Phone" type="text" maxlength="50" style="width: 260px" />
+	</td> 
+	</tr> 
+	<tr> 
+	<td colspan="2"><INPUT type="button" name="Proceed_BT" value="Proceed" onclick="Proceed_BTonclick()" >
+	</td> 
+	</tr> 
+	</table>
+</form>
+</body>
+</html>
