@@ -1,0 +1,292 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<meta http-equiv="Pragma" content="no-cache">
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso8859-1">
+<title>Login</title>
+<LINK rel="stylesheet" type="text/css" href="/English/GenScripts94/qa.css">
+<link href="/English/GenScripts94/Rentpro10.css" rel="stylesheet" type="text/css">
+<script language="javascript" src="/English/GenScripts94/settings.js"></script>
+<style type="text/css">
+<!--
+.style1 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-style: italic;
+	font-weight: bold;
+	font-size: 24px;
+	color: #FFFFFF;
+}
+-->
+</style>
+
+<script language="javascript" src="/English/GenScripts94/GenFunctions.js"></script>
+<script language="JavaScript" type="text/javascript">
+<!--
+
+var MainWin;
+if (document.all){	 	
+	document.onkeydown = function (){
+	        var key_f5 = 116; // 116 = F5		
+	         	
+		if (key_f5==event.keyCode)
+		{
+//			  if(MainWin)
+	//			 {
+				  					event.keyCode=0;
+										return false;
+		//		 }
+		}
+		else if(event.keyCode==8)//8 for back button
+		{
+			// 					event.keyCode=0;
+				//				return false;
+		}
+	}
+}
+function init()
+{ 
+
+delCookie('UserName','/',null);
+delCookie('Company','/',null);
+delCookie('Customer_ID','/',null);
+delCookie('RANGE_DEBITOR','/',null);
+delCookie('RANGE_SUPPLIER','/',null);
+delCookie('UserBranchCode','/',null);
+delCookie('CPUserSessionID', '/', null);
+}
+
+function CloseMainWin()
+{
+	  if(MainWin)
+				 {
+//				 MainWin.close();
+		}
+}
+
+function clearform()
+{
+	with(document.forms[0])
+	{
+	 
+		
+		Pass.value='';
+		User.value='';
+ 	
+		 
+	}
+}
+ 
+ 
+
+function check_form()
+{ 
+ with(document.forms[0])
+ {
+ 
+ /* only Aa-Zz 0 to 9 or _ or - */
+ 	
+  	if(!(NotEmptyField(User.value)))     //for must fields: field is not " " , not "0"
+      {
+         alert("Please specify all access details");
+				 		 User.focus();
+         return false;
+      }    
+	if(!(NotEmptyField(Pass.value)))     //for must fields: field is not " " , not "0"
+      {
+         alert("Please specify all access details");
+				 		 Pass.focus();
+         return false;
+      }  
+    var txtUsername = (User.value).toUpperCase();
+   
+    User.value = (User.value).toUpperCase();
+    User.value = window.btoa(User.value);
+    Pass.value = window.btoa(Pass.value);
+
+				submit();
+				 //User.value = txtUsername;
+
+		}
+		
+  }
+
+
+function MessageWindow()
+{
+	 document.forms[0].ProcessWindowNo.value=1;
+	 Process=open("/Process.html", "PleaseWait", "left=200,top=250,width=267,height=103");
+}
+function MessageWindowClose()
+{
+if(document.forms[0].ProcessWindowNo.value==1)
+{
+	 Process.close();
+}
+}
+
+function CheckPassword(inputtxt)   
+{   
+var decimal=  /^(?=(.*\d){2})(?=(.*[a-z]){2})(?=(.*[A-Z]){2})(?!.*\s).{15,}$/;  
+if(inputtxt.value.match(decimal))   
+{   
+//alert('Correct, try another...')  
+return true;  
+}  
+else  
+{   
+alert("Password should be of minimum 15 characters and contains minumum 2 lower case, 2 UPPER CASE, 2 Special Characters, 2 Numbers.");
+inputtxt.value = "";
+return false;  
+}  
+
+	var decimalS=  /^(?=(.*[!$@^_]){2})/;  
+			//alert(Emp_pass.value.match(decimalS));
+			if(Emp_pass.value.match(decimalS))   
+		{   
+		  
+		}  
+		
+		else  
+		{   
+		alert("Allowed Special Characters are !,$,@,^,_");
+		Emp_pass.value = "";
+		ReTypePass.value = "";
+		return false;  
+		} 
+}
+
+//-->
+</script>
+
+</HEAD>
+
+<body  onload="javascript:init();" onunload="javascript: MessageWindowClose()">
+
+<form name=formi method="post" action="/RentPro.Server/Request.aspx"  align="center">
+	<input type="hidden" name="APPNAME" value="RentProWeb">
+	<input type="hidden" name="PRGNAME" value="LoadBranchCmboVWFS">
+	<input type="hidden" name="ARGUMENTS" value="User,Pass,DUMMY,DUMMY">
+	<input type="hidden" name="PasswordChange" value="0">
+	<input type="hidden" name="DUMMY" value="">
+	<input type="hidden" name="FromInvalid" value="">
+	<input type="hidden" name="FromLogOff" value="<!$MG_FromLogOff>"><!-- Value=1 If From Logoff-->
+  <INPUT type="hidden" name="ProcessWindowNo" value="">
+	<INPUT type="hidden" name="EmpDebitorExists" value="">
+<center>
+
+
+<table width="960" border="0" cellpadding="0" cellspacing="0">
+  <!--DWLayoutTable-->
+  <tr>
+    <td width="133" rowspan="2" align="center" valign="middle" background="/English/Images94/topBar/customer_logo_bg.jpg"><img src="/English/Images94/customer_logo.gif" width="71" height="30"></td>
+    <td width="513" rowspan="2" align="center" valign="middle" background="/English/Images94/topBar/top_bar_bg.jpg" style="background-repeat:repeat-x "><span class="style1">RentPro Branch Management </span></td>
+    <td width="18" height="25" valign="top" background="/English/Images94/topBar/top_bar_bg.jpg" style="background-repeat:repeat-x "><!--DWLayoutEmptyCell-->&nbsp;</td>
+    <td width="58" align="center" valign="bottom" class="topBarLinks"></td>
+    <td width="58" align="center" valign="bottom" class="topBarLinks"><a HREF="mailto:support@carprosystems.com">Help</a></td>
+    <td width="58" align="center" valign="bottom" class="topBarLinks"><a HREF="/English/Aboutus/aboutus.htm"  target="_new"  >About Us</a></td>
+    <td width="141" align="right" valign="middle"  background="/English/Images94/topBar/top_bar_bg.jpg" class="carProLogo" style="background-repeat:repeat-x ">&nbsp; Powered By &nbsp; <img src="/English/Images94/topBar/carpro_logo.jpg" width="50" height="19" align="absmiddle">&nbsp; &nbsp; </td>
+  <td width="16" valign="top"><img src="/English/Images94/topBar/top_bar_right_corner.jpg" width="16" height="25"></td>
+  </tr>
+  <tr>
+    <td height="25" valign="top"><img src="/English/Images94/topBar/top_bar_date_corner.jpg" width="18" height="25"></td>
+    <td colspan="5" align="left" valign="middle" background="/English/Images94/topBar/top_bar_date_frame.jpg" style="background-repeat:repeat-x " nowrap> &nbsp;<font class="topBarDate"></font> 
+ 
+  </tr>
+  <tr>
+  <td>&nbsp;
+  </td>
+  </tr>
+    <tr>
+  <td>&nbsp;
+  </td>
+  </tr>
+</table>
+ 
+ 
+<table width="400" border="0" cellpadding="0" cellspacing="0">
+  <!--DWLayoutTable-->
+  <tr>
+    <td width="18" height="39" valign="top" ><img src="/English/Images94/mainWindow/window_top_left_corner.jpg" width="18" height="39"></td>
+    <td align="center"  width="90%" valign="middle" background="/English/Images94/mainWindow/window_header_bg.jpg" class="windowHeader" nowrap>&nbsp;Welcome to RentPro Branch Management&nbsp; </td>
+ 	  <td colspan="3" align="right" valign="middle" background="/English/Images94/mainWindow/window_header_bg.jpg" class="windowRightHeader"> <img src="/English/Images94/mainWindow/window_header_right.jpg" width="9" height="39" align="absmiddle"></td>
+  </tr>
+  <tr>
+    <td rowspan="4" valign="top" background="/English/Images94/mainWindow/window_left_border.jpg"><!--DWLayoutEmptyCell-->&nbsp;</td>
+		<td height="24" colspan="3" valign="top" >
+	
+	<table border="0" class="qAccessCriteria" cellpadding="0" cellspacing="0" width="100%" >
+		<tr><td>
+				  <table border=0 cellspacing=3 cellpadding=5 width="100%">
+    	
+    			 <tr>
+					 		 		<td width="10%">&nbsp;&nbsp;&nbsp;</td>
+					 		   <td class="windowHeader" >Please specify the following</td>
+           </tr>
+      </table>
+    
+			
+	   </td></tr>
+ 	   </table>
+    </td>
+    <td width="18" rowspan="4" valign="top" background="/English/Images94/mainWindow/window_right_border.jpg"><!--DWLayoutEmptyCell-->&nbsp;</td>
+    </tr>
+
+  <tr>
+   <TD colspan=3>
+		<table border="0"  class="qAccessDetails" cellpadding="0" cellspacing="0" width="100%">
+		<tr>
+		   <td >
+					<table border=0 cellspacing=3 cellpadding=5 width="100%">
+            <tr>
+								<td width="10%"></td>
+					      <td class="LableHeader"  width="40%"><B>User Name&nbsp;</B></td>
+								<td width="50%"><input type="text" autocomplete="off" name="User" size="20" maxlength="10" style="font-size: 8pt;" class="textInputField"></td>
+					  </tr>
+					  <tr>
+								<td width="10%"></td>
+						    <td class="LableHeader"  width="40%"><B>Password&nbsp;</B></td>
+								<td width="50%"><input type="Password" name="Pass" size="20" maxlength="50" autocomplete="off" class="textInputField" onfocus="this.select();"></td>
+				  </tr>
+			  
+	
+				 </table>
+		   </td>
+	  </tr>
+   </table>
+	 </td>
+	 </tr>
+	 <TR><TD colspan="3">
+	 <SPAN id="Z1"  style="display=None">
+	
+		</SPAN>
+		</td></tr>
+		<tr><td nowrap background="/English/Images94/QuickAccess/light_blue_bg.jpg" colspan="3"  align="center"  >
+		
+	<input type="button" class="button" name="Ok_Btn" value="OK" onclick="check_form()">
+	<input type="button" class="button" name="Clear_Btn" value="Clear" onclick="clearform()">	
+	</td></tr>
+
+				 <tr>
+    <td height="18" valign="top"><img src="/English/Images94/mainWindow/window_bottom_left_corner.jpg" width="18" height="18"></td>
+    <td colspan="3" valign="top" background="/English/Images94/mainWindow/window_bottom_border.jpg"><!--DWLayoutEmptyCell-->&nbsp;</td>
+    <td valign="top"><img src="/English/Images94/mainWindow/window_bottom_right_corner.jpg" width="18" height="18"></td>
+  </tr>
+  <tr>
+    <td height="1"></td>
+    <td></td>
+    <td width="258"></td>
+    <td></td>
+  </tr>
+
+</table> 
+<script for =document event=oncontextmenu>
+<!--
+return false;
+//-->
+</script>
+
+ 
+
+</form>
+</body>
+</html>
